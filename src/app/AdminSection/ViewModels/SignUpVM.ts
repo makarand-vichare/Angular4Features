@@ -7,7 +7,7 @@ export class SignUpVM extends BaseVM {
     Password: string;
     DateOfBirth: Moment;
     Country: number;
-    Location: string;
+    City: number;
     Gender: number;
     AboutInfo: string;
 }

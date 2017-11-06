@@ -11,12 +11,13 @@ import { Genders } from '../../Common/AppEnum';
 import { CountryService } from '../../Common/Services/CountryService';
 import * as moment from 'moment';
 import { MomentDateAdapter } from '../../Common/Helpers/MomentDateAdapter';
+import { CityService } from '../../Common/Services/CityService';
 
 @Component({
     selector: 'app-signup',
     templateUrl: './../Views/SignUpComponent.html',
     styleUrls: ['./../Views/SignUpComponent.scss'],
-    providers: [CountryService, NGXLogger, MomentDateAdapter]
+    providers: [CityService, CountryService, NGXLogger, MomentDateAdapter]
 })
 
 export class SignUpComponent extends BaseComponent implements OnInit {
@@ -24,6 +25,7 @@ export class SignUpComponent extends BaseComponent implements OnInit {
         _logService: NGXLogger,
         private authService: AuthService,
         private countryService: CountryService,
+        private cityService: CityService,
         _toastr: ToastsManager,
         _vRef: ViewContainerRef,
         private dateAdapter: MomentDateAdapter) {
@@ -33,6 +35,7 @@ export class SignUpComponent extends BaseComponent implements OnInit {
     signUpVM: SignUpVM;
     countries: Array<KeyValuePair>;
     genders: Array<KeyValuePair>;
+    cities: Array<KeyValuePair>;
 
     ngOnInit() {
         const self = this;
@@ -44,8 +47,9 @@ export class SignUpComponent extends BaseComponent implements OnInit {
             Password: '',
             DateOfBirth : dob,
             Country: -1,
-            Location: '',
-            Gender : -1
+            City: -1,
+            Gender : -1,
+            AboutInfo : ''
         } as SignUpVM;
 
         self.genders = [
@@ -71,6 +75,22 @@ export class SignUpComponent extends BaseComponent implements OnInit {
             }
         );
     }
+
+    GetCities = () => {
+        const self = this;
+        self.cityService.GetCities(self.signUpVM.Country).subscribe(
+            (response: any) => {
+                if (response.isSucceed) {
+                    self.cities = response.viewModels;
+                }
+            },
+            (error: any) => {
+                self.logService.error(error);
+                console.error(error);
+            }
+        );
+    }
+
     StartTimer = () => {
         const self = this;
         setTimeout(() => {

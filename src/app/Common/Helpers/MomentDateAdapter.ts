@@ -1,132 +1,208 @@
-import { DateAdapter } from '@angular/material';
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+
+import { Inject, Injectable, Optional } from '@angular/core';
+import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material';
+// Depending on whether rollup is used, moment needs to be imported differently.
+// Since Moment.js doesn't have a default export, we normally need to import using the `* as`
+// syntax. However, rollup creates a synthetic default module and we thus need to import it using
+// the `default as` syntax.
+// TODO(mmalerba): See if we can clean this up at some point.
 import * as moment from 'moment';
 
-export class MomentDateAdapter extends DateAdapter<moment.Moment> {
+/** Creates an array and fills it with values. */
+function range<T>(length: number, valueFunction: (index: number) => T): T[] {
+    const valuesArray = Array(length);
+    for (let i = 0; i < length; i++) {
+        valuesArray[i] = valueFunction(i);
+    }
+    return valuesArray;
+}
 
-    parse(value: any, parseFormat: any): moment.Moment {
-        return moment(value, parseFormat);
+
+/** Adapts Moment.js Dates for use with Angular Material. */
+@Injectable()
+export class MomentDateAdapter extends DateAdapter<moment.Moment> {
+    // Note: all of the methods that accept a `Moment` input parameter immediately call `this.clone`
+    // on it. This is to ensure that we're working with a `Moment` that has the correct locale setting
+    // while avoiding mutating the original object passed to us. Just calling `.locale(...)` on the
+    // input would mutate the object.
+    private _localeData: {
+        firstDayOfWeek: number,
+        longMonths: string[],
+        shortMonths: string[],
+        dates: string[],
+        longDaysOfWeek: string[],
+        shortDaysOfWeek: string[],
+        narrowDaysOfWeek: string[]
+    };
+
+    constructor( @Optional() @Inject(MAT_DATE_LOCALE) dateLocale: string) {
+        super();
+        this.setLocale(dateLocale || moment.locale());
+    }
+
+    setLocale(locale: string) {
+        super.setLocale(locale);
+
+        const momentLocaleData = moment.localeData(locale);
+        this._localeData = {
+            firstDayOfWeek: momentLocaleData.firstDayOfWeek(),
+            longMonths: momentLocaleData.months(),
+            shortMonths: momentLocaleData.monthsShort(),
+            dates: range(31, (i) => this.createDate(2017, 0, i + 1).format('D')),
+            longDaysOfWeek: momentLocaleData.weekdays(),
+            shortDaysOfWeek: momentLocaleData.weekdaysShort(),
+            narrowDaysOfWeek: momentLocaleData.weekdaysMin(),
+        };
     }
 
     getYear(date: moment.Moment): number {
-        return date.year();
+        return this.clone(date).year();
     }
+
     getMonth(date: moment.Moment): number {
-        return date.month();
+        return this.clone(date).month();
     }
+
     getDate(date: moment.Moment): number {
-        return date.date();
+        return this.clone(date).date();
     }
+
     getDayOfWeek(date: moment.Moment): number {
-        return date.day();
+        return this.clone(date).day();
     }
+
     getMonthNames(style: 'long' | 'short' | 'narrow'): string[] {
-       let months = moment.months();
-        switch (style) {
-            case 'long':
-            {
-                // default
-                break;
-            }
-            case 'short':
-            {
-                months = moment.monthsShort();
-                break;
-            }
-            case 'narrow':
-            {
-                months = moment.monthsShort();
-                break;
-            }
-        }
-        return months;
+        // moment.Moment.js doesn't support narrow month names, so we just use short if narrow is requested.
+        return style === 'long' ? this._localeData.longMonths : this._localeData.shortMonths;
     }
+
     getDateNames(): string[] {
-        const daytotal = moment().daysInMonth();
-        const dates: string[] = [];
-
-        for (let i = 1; i <= 31; i++) {
-            const date = this.createDate(moment().year(), 0, i ).format('D');
-            dates.push(date);
-        }
-
-        return dates;
+        return this._localeData.dates;
     }
+
     getDayOfWeekNames(style: 'long' | 'short' | 'narrow'): string[] {
-        let weekdays = moment.weekdays();
-        switch (style) {
-            case 'long':
-            {
-                // default
-                break;
-            }
-            case 'short':
-            {
-                weekdays = moment.weekdaysShort();
-                break;
-            }
-            case 'narrow':
-            {
-                weekdays = moment.weekdaysMin();
-                break;
-            }
+        if (style === 'long') {
+            return this._localeData.longDaysOfWeek;
         }
-        return weekdays;
+        if (style === 'short') {
+            return this._localeData.shortDaysOfWeek;
+        }
+        return this._localeData.narrowDaysOfWeek;
     }
+
     getYearName(date: moment.Moment): string {
-        return date.format('YYYY');
+        return this.clone(date).format('YYYY');
     }
+
     getFirstDayOfWeek(): number {
-        return moment.localeData().firstDayOfWeek();
+        return this._localeData.firstDayOfWeek;
     }
+
     getNumDaysInMonth(date: moment.Moment): number {
-        return date.daysInMonth();
+        return this.clone(date).daysInMonth();
     }
+
     clone(date: moment.Moment): moment.Moment {
-        return date.clone();
+        return date.clone().locale(this.locale);
     }
+
     createDate(year: number, month: number, date: number): moment.Moment {
+        // moment.Moment.js will create an invalid date if any of the components are out of bounds, but we
+        // explicitly check each case so we can throw more descriptive errors.
         if (month < 0 || month > 11) {
             throw Error(`Invalid month index "${month}". Month index has to be between 0 and 11.`);
-          }
+        }
 
-          if (date < 1) {
+        if (date < 1) {
             throw Error(`Invalid date "${date}". Date has to be greater than 0.`);
-          }
+        }
 
-          const result = moment({year, month, date});
+        const result = moment({ year, month, date }).locale(this.locale);
 
-          // If the result isn't valid, the date must have been out of bounds for this month.
-          if (!result.isValid()) {
+        // If the result isn't valid, the date must have been out of bounds for this month.
+        if (!result.isValid()) {
             throw Error(`Invalid date "${date}" for month with index "${month}".`);
-          }
+        }
 
-          return result;
+        return result;
     }
+
     today(): moment.Moment {
-        return moment(new Date());
+        return moment().locale(this.locale);
     }
-    format(date: moment.Moment, displayFormat: any): string {
+
+    parse(value: any, parseFormat: string | string[]): moment.Moment | null {
+        if (value && typeof value === 'string') {
+            return moment(value, parseFormat, this.locale);
+        }
+        return value ? moment(value).locale(this.locale) : null;
+    }
+
+    format(date: moment.Moment, displayFormat: string): string {
+        date = this.clone(date);
+        if (!this.isValid(date)) {
+            throw Error('MomentDateAdapter: Cannot format invalid date.');
+        }
         return date.format(displayFormat);
     }
+
     addCalendarYears(date: moment.Moment, years: number): moment.Moment {
-        return date.add(years, 'year');
+        return this.clone(date).add({ years });
     }
+
     addCalendarMonths(date: moment.Moment, months: number): moment.Moment {
-        return date.add(months, 'month');
+        return this.clone(date).add({ months });
     }
+
     addCalendarDays(date: moment.Moment, days: number): moment.Moment {
-        return date.add(days, 'day');
+        return this.clone(date).add({ days });
     }
+
     toIso8601(date: moment.Moment): string {
-        return date.toISOString();
+        return this.clone(date).format();
     }
+
     fromIso8601(iso8601String: string): moment.Moment {
         return moment(iso8601String);
     }
+    /**
+     * Returns the given value if given a valid Moment or null. Deserializes valid ISO 8601 strings
+     * (https://www.ietf.org/rfc/rfc3339.txt) and valid Date objects into valid Moments and empty
+     * string into null. Returns an invalid date for all other values.
+     */
+    //   deserialize(value: any): Moment | null {
+    //     let date;
+    //     if (value instanceof Date) {
+    //       date = moment(value);
+    //     }
+    //     if (typeof value === 'string') {
+    //       if (!value) {
+    //         return null;
+    //       }
+    //       date = moment(value, moment.ISO_8601).locale(this.locale);
+    //     }
+    //     if (date && this.isValid(date)) {
+    //       return date;
+    //     }
+    //     return super.deserialize(value);
+    //   }
+
     isDateInstance(obj: any): boolean {
-       return moment(obj).isValid();
+        return moment.isMoment(obj);
     }
+
     isValid(date: moment.Moment): boolean {
-        return date.isValid();
+        return this.clone(date).isValid();
+    }
+
+    invalid(): moment.Moment {
+        return moment.invalid();
     }
 }

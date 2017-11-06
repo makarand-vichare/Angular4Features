@@ -1,56 +1,89 @@
 <div class="signup">
 
   <div class="d-flex flex-row">
-    <div class="p-2">Name</div>
-    <div class="p-2">
+    <div class="p-1">Name</div>
+    <div class="p-3">
       <mat-form-field>
-        <input matInput placeholder="Name" [(ngModel)]="signUpVM.Name"/>
+        <input matInput placeholder="Name" [(ngModel)]="signUpVM.Name" required/>
+        <mat-error>This field is required</mat-error>
       </mat-form-field>
     </div>
   </div>
   <div class="d-flex flex-row">
-    <div class="p-2">Email</div>
-    <div class="p-2">
+    <div class="p-1">Email</div>
+    <div class="p-3">
       <mat-form-field>
-        <input matInput placeholder="Email" [(ngModel)]="signUpVM.Email"/>
+        <input matInput placeholder="Email" [(ngModel)]="signUpVM.Email" required/>
+        <mat-error>This field is required</mat-error>
       </mat-form-field>
     </div>
   </div>
   <div class="d-flex flex-row">
-    <div class="p-2">Gender</div>
-    <div class="p-2">
+    <div class="p-1">Password</div>
+    <div class="p-3">
       <mat-form-field>
-        <mat-select placeholder="Select Gender">
-          <mat-option *ngFor="let gender of genders" [value]="gender.id" >
+        <input matInput placeholder="Password" [(ngModel)]="signUpVM.Password" required/>
+        <mat-error>This field is required</mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="d-flex flex-row">
+    <div class="p-1">Gender</div>
+    <div class="p-3">
+      <mat-form-field>
+        <mat-select placeholder="Select Gender" [(ngModel)]="signUpVM.Gender" required>
+          <mat-option *ngFor="let gender of genders" [value]="gender.id">
             {{ gender.value }}
           </mat-option>
         </mat-select>
+        <mat-error>This field is required</mat-error>
       </mat-form-field>
     </div>
   </div>
   <div class="d-flex flex-row">
-    <div class="p-2">Date Of Birth</div>
-    <div class="p-2">
-        <mat-form-field>
-          <input matInput [matDatepicker]="picker" [(ngModel)]="signUpVM.DateOfBirth" 
-          placeholder="Choose a Date Of Birth"/>
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker  #picker></mat-datepicker>
-        </mat-form-field>
+    <div class="p-1">Date Of Birth</div>
+    <div class="p-3">
+      <mat-form-field>
+        <input matInput [matDatepicker]="picker" [(ngModel)]="signUpVM.DateOfBirth" placeholder="Choose a Date Of Birth" required />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error>This field is required</mat-error>
+      </mat-form-field>
     </div>
   </div>
   <div class="d-flex flex-row">
-    <div class="p-2">Country</div>
-    <div class="p-2">
+    <div class="p-1">Country</div>
+    <div class="p-3">
       <mat-form-field>
-        <mat-select placeholder="Select Country">
+        <mat-select placeholder="Select Country" [(ngModel)]="signUpVM.Country" (change)="GetCities()" required>
           <mat-option *ngFor="let country of countries" [value]="country.id">
             {{country.value}}
           </mat-option>
         </mat-select>
+        <mat-error>This field is required</mat-error>
       </mat-form-field>
     </div>
   </div>
-
-  <button class="signup__submit" mat-button>Submit</button>
+  <div class="d-flex flex-row">
+    <div class="p-1">City</div>
+    <div class="p-3">
+      <mat-form-field>
+        <mat-select placeholder="Select City" [(ngModel)]="signUpVM.City" required>
+          <mat-option *ngFor="let city of cities" [value]="city.id">
+            {{city.value}}
+          </mat-option>
+        </mat-select>
+        <mat-error>This field is required</mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="d-flex flex-row">
+    <div>
+      <div>About Info</div>
+      <mat-form-field>
+          <textarea matInput placeholder="About Info" [(ngModel)]="signUpVM.AboutInfo"></textarea>
+      </mat-form-field>
+    </div>
+  </div>
+  <button class="signup__submit" mat-button (click)="SignUp()">Submit</button>
 </div>
