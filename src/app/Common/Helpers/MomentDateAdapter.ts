@@ -1,24 +1,23 @@
 import { DateAdapter } from '@angular/material';
-import { Moment } from 'moment';
 import * as moment from 'moment';
 
-export class MomentDateAdapter extends DateAdapter<Moment> {
+export class MomentDateAdapter extends DateAdapter<moment.Moment> {
 
-    parse(value: any, parseFormat: any): Moment {
+    parse(value: any, parseFormat: any): moment.Moment {
         return moment(value, parseFormat);
     }
 
-    getYear(date: Moment): number {
+    getYear(date: moment.Moment): number {
         return date.year();
     }
-    getMonth(date: Moment): number {
+    getMonth(date: moment.Moment): number {
         return date.month();
     }
-    getDate(date: Moment): number {
+    getDate(date: moment.Moment): number {
         return date.date();
     }
-    getDayOfWeek(date: Moment): number {
-        return date.week();
+    getDayOfWeek(date: moment.Moment): number {
+        return date.day();
     }
     getMonthNames(style: 'long' | 'short' | 'narrow'): string[] {
        let months = moment.months();
@@ -43,13 +42,14 @@ export class MomentDateAdapter extends DateAdapter<Moment> {
     }
     getDateNames(): string[] {
         const daytotal = moment().daysInMonth();
-        const days: string[] = [];
+        const dates: string[] = [];
 
-        for (let i = 1; i <= daytotal; i++) {
-            days.push(i.toString());
+        for (let i = 1; i <= 31; i++) {
+            const date = this.createDate(moment().year(), 0, i ).format('D');
+            dates.push(date);
         }
 
-        return days;
+        return dates;
     }
     getDayOfWeekNames(style: 'long' | 'short' | 'narrow'): string[] {
         let weekdays = moment.weekdays();
@@ -72,48 +72,61 @@ export class MomentDateAdapter extends DateAdapter<Moment> {
         }
         return weekdays;
     }
-    getYearName(date: Moment): string {
-        return date.format('yyyy');
+    getYearName(date: moment.Moment): string {
+        return date.format('YYYY');
     }
     getFirstDayOfWeek(): number {
-        return moment().weekday();
+        return moment.localeData().firstDayOfWeek();
     }
-    getNumDaysInMonth(date: Moment): number {
+    getNumDaysInMonth(date: moment.Moment): number {
         return date.daysInMonth();
     }
-    clone(date: Moment): Moment {
+    clone(date: moment.Moment): moment.Moment {
         return date.clone();
     }
-    createDate(year: number, month: number, date: number): Moment {
-        return moment(date).month(month).year(year);
+    createDate(year: number, month: number, date: number): moment.Moment {
+        if (month < 0 || month > 11) {
+            throw Error(`Invalid month index "${month}". Month index has to be between 0 and 11.`);
+          }
+
+          if (date < 1) {
+            throw Error(`Invalid date "${date}". Date has to be greater than 0.`);
+          }
+
+          const result = moment({year, month, date});
+
+          // If the result isn't valid, the date must have been out of bounds for this month.
+          if (!result.isValid()) {
+            throw Error(`Invalid date "${date}" for month with index "${month}".`);
+          }
+
+          return result;
     }
-    today(): Moment {
+    today(): moment.Moment {
         return moment(new Date());
     }
-    format(date: Moment, displayFormat: any): string {
+    format(date: moment.Moment, displayFormat: any): string {
         return date.format(displayFormat);
     }
-    addCalendarYears(date: Moment, years: number): Moment {
+    addCalendarYears(date: moment.Moment, years: number): moment.Moment {
         return date.add(years, 'year');
     }
-    addCalendarMonths(date: Moment, months: number): Moment {
+    addCalendarMonths(date: moment.Moment, months: number): moment.Moment {
         return date.add(months, 'month');
     }
-    addCalendarDays(date: Moment, days: number): Moment {
+    addCalendarDays(date: moment.Moment, days: number): moment.Moment {
         return date.add(days, 'day');
     }
-    toIso8601(date: Moment): string {
+    toIso8601(date: moment.Moment): string {
         return date.toISOString();
     }
-    fromIso8601(iso8601String: string): Moment {
+    fromIso8601(iso8601String: string): moment.Moment {
         return moment(iso8601String);
     }
     isDateInstance(obj: any): boolean {
        return moment(obj).isValid();
     }
-    isValid(date: Moment): boolean {
+    isValid(date: moment.Moment): boolean {
         return date.isValid();
     }
-
-    // Implementation for remaining abstract methods of DateAdapter.
 }

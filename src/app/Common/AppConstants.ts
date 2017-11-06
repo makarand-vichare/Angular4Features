@@ -12,7 +12,6 @@ export const MOMENT_FORMATS = {
   display: {
       dateInput: 'DD/MM/YYYY',
       monthYearLabel: 'MMM YYYY',
-      shortDate: 'DD/MM/YYYY',
-      // See DateFormats for other required formats.
+      shortDate: 'DD/MM/YYYY'
   },
 };
