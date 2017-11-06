@@ -1,9 +1,56 @@
-<div class="col-md-12">
-  <h2 class="form-login-heading">Sign Up</h2>
-  <input type="text" class="form-control" placeholder="User Name" [(ngModel)]="loginVM.UserName" required autofocus>
-  <input type="password" class="form-control m-t-sm" placeholder="Password" [(ngModel)]="loginVM.Password" required>
-  <button class="btn btn-md btn-info btn-block m-t-sm loginbutton" type="submit" (click)="Login()">Sign up</button>
-  <div [hidden]="ProcessInfo.Message == ''" class="alert alert-danger">
-      {{ProcessInfo.Message}}
+<div class="signup">
+
+  <div class="d-flex flex-row">
+    <div class="p-2">Name</div>
+    <div class="p-2">
+      <mat-form-field>
+        <input matInput placeholder="Name" [(ngModel)]="signUpVM.Name"/>
+      </mat-form-field>
+    </div>
   </div>
+  <div class="d-flex flex-row">
+    <div class="p-2">Email</div>
+    <div class="p-2">
+      <mat-form-field>
+        <input matInput placeholder="Email" [(ngModel)]="signUpVM.Email"/>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="d-flex flex-row">
+    <div class="p-2">Gender</div>
+    <div class="p-2">
+      <mat-form-field>
+        <mat-select placeholder="Select Gender">
+          <mat-option *ngFor="let gender of genders" [value]="gender.id" >
+            {{ gender.value }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="d-flex flex-row">
+    <div class="p-2">Date Of Birth</div>
+    <div class="p-2">
+        <mat-form-field>
+          <input matInput [matDatepicker]="picker" [(ngModel)]="signUpVM.DateOfBirth" 
+          placeholder="Choose a Date Of Birth"/>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker  #picker></mat-datepicker>
+        </mat-form-field>
+    </div>
+  </div>
+  <div class="d-flex flex-row">
+    <div class="p-2">Country</div>
+    <div class="p-2">
+      <mat-form-field>
+        <mat-select placeholder="Select Country">
+          <mat-option *ngFor="let country of countries" [value]="country.id">
+            {{country.value}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <button class="signup__submit" mat-button>Submit</button>
 </div>

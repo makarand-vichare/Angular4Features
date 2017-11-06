@@ -1,45 +1,76 @@
 import { AuthService } from './../../AdminSection/Services/AuthService';
-import { AppConstants } from './../../Common/AppConstants';
+import { AppConstants, MOMENT_FORMATS } from './../../Common/AppConstants';
 import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { BaseComponent } from '../../Common/Components/BaseComponent';
 import { Router } from '@angular/router';
 import { NGXLogger } from 'ngx-logger';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { SignUpVM } from '../../AdminSection/ViewModels/SignUpVM';
-
+import { KeyValuePair } from '../../Common/ViewModels/KeyValuePair';
+import { Genders } from '../../Common/AppEnum';
+import { CountryService } from '../../Common/Services/CountryService';
+import * as moment from 'moment';
+import { MomentDateAdapter } from '../../Common/Helpers/MomentDateAdapter';
 
 @Component({
     selector: 'app-signup',
     templateUrl: './../Views/SignUpComponent.html',
-    styleUrls: ['./../Views/SignUpComponent.scss']
+    styleUrls: ['./../Views/SignUpComponent.scss'],
+    providers: [CountryService, NGXLogger, MomentDateAdapter]
 })
 
 export class SignUpComponent extends BaseComponent implements OnInit {
     constructor(_routerService: Router,
         _logService: NGXLogger,
         private authService: AuthService,
+        private countryService: CountryService,
         _toastr: ToastsManager,
-        _vRef: ViewContainerRef) {
+        _vRef: ViewContainerRef,
+        private dateAdapter: MomentDateAdapter) {
         super(_routerService, _logService, _toastr, _vRef);
     }
 
     signUpVM: SignUpVM;
+    countries: Array<KeyValuePair>;
+    genders: Array<KeyValuePair>;
 
     ngOnInit() {
         const self = this;
-        const dob = new Date();
-        dob.setUTCFullYear(dob.getFullYear() - 20);
+        const dob = self.dateAdapter.addCalendarYears(moment(), -20);
+
          self.signUpVM = {
-            Name: '',
-            Email: '',
+            Name: 'Name1',
+            Email: 'Email@email.com',
             Password: '',
             DateOfBirth : dob,
             Country: -1,
             Location: '',
             Gender : -1
         } as SignUpVM;
+
+        self.genders = [
+         {id: '0', value: 'Select'} as KeyValuePair,
+         {id: Genders.Female.toString(), value: Genders[Genders.Female] } as KeyValuePair,
+         {id: Genders.Male.toString(), value: Genders[Genders.Male] } as KeyValuePair
+        ] as Array<KeyValuePair>;
+
+        self.GetCountries();
     }
 
+    GetCountries = () => {
+        const self = this;
+        self.countryService.GetCountries().subscribe(
+            (response: any) => {
+                if (response.isSucceed) {
+                    self.countries = response.viewModels;
+                }
+            },
+            (error: any) => {
+                self.logService.error(error);
+                console.error(error);
+            }
+        );
+    }
     StartTimer = () => {
         const self = this;
         setTimeout(() => {
