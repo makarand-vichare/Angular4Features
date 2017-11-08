@@ -17,7 +17,9 @@ export class CityService extends BaseService {
   GetCities = (countryId: number): Observable<any> => {
     const self = this;
     const config = {
-      'Accept': 'application/json', 'Access-Control-Allow-Headers': 'Content-Type, x-xsrf-token'
+      'Accept': 'application/json',
+      'Access-Control-Allow-Headers': 'Content-Type, x-xsrf-token',
+       params: {countryId: countryId}
     } as RequestOptionsArgs;
 
     return self.httpService.get(AppConstants.AuthAPIUrl + '/api/city/GetCities', config)

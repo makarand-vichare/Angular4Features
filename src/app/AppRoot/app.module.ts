@@ -59,7 +59,7 @@ import { StarShipTravelComponent } from './../UserSection/Components/StarShipTra
 import { PlanetComponent } from './../AdminSection/Components/PlanetComponent';
 import { AdminLandingComponent } from '../AdminSection/Components/AdminLandingComponent';
 import { UserLandingComponent } from '../UserSection/Components/UserLandingComponent';
-import { MomentDateAdapter } from '../Common/Helpers/MomentDateAdapter';
+import { MomentDateAdapter} from '@angular/material-moment-adapter';
 import { MOMENT_FORMATS } from '../Common/AppConstants';
 @NgModule({
   declarations: [

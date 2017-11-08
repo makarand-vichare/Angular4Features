@@ -10,14 +10,18 @@ import { KeyValuePair } from '../../Common/ViewModels/KeyValuePair';
 import { Genders } from '../../Common/AppEnum';
 import { CountryService } from '../../Common/Services/CountryService';
 import * as moment from 'moment';
-import { MomentDateAdapter } from '../../Common/Helpers/MomentDateAdapter';
 import { CityService } from '../../Common/Services/CityService';
+import {MAT_MOMENT_DATE_FORMATS, MomentDateAdapter} from '@angular/material-moment-adapter';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 
 @Component({
     selector: 'app-signup',
     templateUrl: './../Views/SignUpComponent.html',
     styleUrls: ['./../Views/SignUpComponent.scss'],
-    providers: [CityService, CountryService, NGXLogger, MomentDateAdapter]
+    providers: [CityService, CountryService, NGXLogger, MomentDateAdapter,
+        {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+        {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS}
+    ]
 })
 
 export class SignUpComponent extends BaseComponent implements OnInit {
@@ -42,12 +46,12 @@ export class SignUpComponent extends BaseComponent implements OnInit {
         const dob = self.dateAdapter.addCalendarYears(moment(), -20);
 
          self.signUpVM = {
-            Name: 'Name1',
-            Email: 'Email@email.com',
+            Id : 0,
+            Email: '',
             Password: '',
             DateOfBirth : dob,
-            Country: -1,
-            City: -1,
+            CountryId: -1,
+            CityId: -1,
             Gender : -1,
             AboutInfo : ''
         } as SignUpVM;
@@ -78,7 +82,7 @@ export class SignUpComponent extends BaseComponent implements OnInit {
 
     GetCities = () => {
         const self = this;
-        self.cityService.GetCities(self.signUpVM.Country).subscribe(
+        self.cityService.GetCities(self.signUpVM.CountryId).subscribe(
             (response: any) => {
                 if (response.isSucceed) {
                     self.cities = response.viewModels;
@@ -117,7 +121,7 @@ export class SignUpComponent extends BaseComponent implements OnInit {
                         self.ProcessInfo.Message = response.data.message;
                     }
                 } else {
-                    self.ProcessInfo.Message = response.data.message;
+                    self.ProcessInfo.Message = response;
                     self.ProcessInfo.IsSucceed = true;
                     self.StartTimer();
                 }

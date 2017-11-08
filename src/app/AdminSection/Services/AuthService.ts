@@ -29,8 +29,8 @@ export class AuthService extends BaseService {
   SignUp = (registration: SignUpVM): Observable<any> => {
     const self = this;
     const  config = {
-      'Accept': 'application/json',
-      'Access-Control-Allow-Headers': 'Content-Type, x-xsrf-token'
+       'Accept': 'application/json',
+       'Access-Control-Allow-Headers': 'Content-Type, x-xsrf-token'
   } as RequestOptionsArgs;
 
   return self.httpService.post( AppConstants.AuthAPIUrl + '/api/Account/Register', registration, config )
