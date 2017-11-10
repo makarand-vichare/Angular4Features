@@ -1,0 +1,12 @@
+D:\codepractice-prj\Angular4Features\WebApi2\0.Common\WebApi2.Common.MEF\bin\Debug\WebApi2.Common.MEF.dll
+D:\codepractice-prj\Angular4Features\WebApi2\0.Common\WebApi2.Common.MEF\bin\Debug\WebApi2.Common.MEF.pdb
+D:\codepractice-prj\Angular4Features\WebApi2\0.Common\WebApi2.Common.MEF\bin\Debug\Microsoft.Practices.Unity.Configuration.dll
+D:\codepractice-prj\Angular4Features\WebApi2\0.Common\WebApi2.Common.MEF\bin\Debug\Microsoft.Practices.Unity.dll
+D:\codepractice-prj\Angular4Features\WebApi2\0.Common\WebApi2.Common.MEF\bin\Debug\Microsoft.Practices.Unity.RegistrationByConvention.dll
+D:\codepractice-prj\Angular4Features\WebApi2\0.Common\WebApi2.Common.MEF\bin\Debug\StructureMap.dll
+D:\codepractice-prj\Angular4Features\WebApi2\0.Common\WebApi2.Common.MEF\bin\Debug\Microsoft.Practices.Unity.xml
+D:\codepractice-prj\Angular4Features\WebApi2\0.Common\WebApi2.Common.MEF\bin\Debug\Microsoft.Practices.Unity.Configuration.xml
+D:\codepractice-prj\Angular4Features\WebApi2\0.Common\WebApi2.Common.MEF\bin\Debug\Microsoft.Practices.Unity.RegistrationByConvention.xml
+D:\codepractice-prj\Angular4Features\WebApi2\0.Common\WebApi2.Common.MEF\obj\Debug\WebApi2.Common.MEF.csproj.CoreCompileInputs.cache
+D:\codepractice-prj\Angular4Features\WebApi2\0.Common\WebApi2.Common.MEF\obj\Debug\WebApi2.Common.MEF.dll
+D:\codepractice-prj\Angular4Features\WebApi2\0.Common\WebApi2.Common.MEF\obj\Debug\WebApi2.Common.MEF.pdb

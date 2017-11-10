@@ -1,0 +1,6 @@
+2017-11-07 21:11:36.5191 WebApi2.InfraStructure.Logging.NLogLogger An error occurred while executing the command definition. See the inner exception for details.
+2017-11-07 21:12:06.0342 WebApi2.InfraStructure.Logging.NLogLogger An error occurred while executing the command definition. See the inner exception for details.
+2017-11-07 21:13:52.4071 WebApi2.InfraStructure.Logging.NLogLogger An error occurred while executing the command definition. See the inner exception for details.
+2017-11-07 21:14:21.0978 WebApi2.InfraStructure.Logging.NLogLogger An error occurred while executing the command definition. See the inner exception for details.
+2017-11-07 21:30:54.7384 WebApi2.InfraStructure.Logging.NLogLogger Cannot drop database "WebApi2" because it is currently in use.
+2017-11-07 21:31:14.8450 WebApi2.InfraStructure.Logging.NLogLogger Cannot drop database "WebApi2" because it is currently in use.

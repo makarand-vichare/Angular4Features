@@ -1,0 +1,6 @@
+D:\codepractice-prj\Angular4Features\WebApi2\4.DataAccess\WebApi2.EntityModels\bin\Debug\WebApi2.EntityModels.dll.config
+D:\codepractice-prj\Angular4Features\WebApi2\4.DataAccess\WebApi2.EntityModels\bin\Debug\WebApi2.EntityModels.dll
+D:\codepractice-prj\Angular4Features\WebApi2\4.DataAccess\WebApi2.EntityModels\bin\Debug\WebApi2.EntityModels.pdb
+D:\codepractice-prj\Angular4Features\WebApi2\4.DataAccess\WebApi2.EntityModels\obj\Debug\WebApi2.EntityModels.csproj.CoreCompileInputs.cache
+D:\codepractice-prj\Angular4Features\WebApi2\4.DataAccess\WebApi2.EntityModels\obj\Debug\WebApi2.EntityModels.dll
+D:\codepractice-prj\Angular4Features\WebApi2\4.DataAccess\WebApi2.EntityModels\obj\Debug\WebApi2.EntityModels.pdb

@@ -1,0 +1,14 @@
+D:\codepractice-prj\Angular4Features\WebApi2\5.InfraStructure\ASPNETIdentityWithOnion.Web\bin\NLog.config
+D:\codepractice-prj\Angular4Features\WebApi2\5.InfraStructure\ASPNETIdentityWithOnion.Web\bin\WebApi2.InfraStructure.dll
+D:\codepractice-prj\Angular4Features\WebApi2\5.InfraStructure\ASPNETIdentityWithOnion.Web\bin\WebApi2.InfraStructure.pdb
+D:\codepractice-prj\Angular4Features\WebApi2\5.InfraStructure\WebApi2.Infrastructure\obj\Debug\WebApi2.InfraStructure.csprojResolveAssemblyReference.cache
+D:\codepractice-prj\Angular4Features\WebApi2\5.InfraStructure\WebApi2.Infrastructure\obj\Debug\WebApi2.InfraStructure.csproj.CoreCompileInputs.cache
+D:\codepractice-prj\Angular4Features\WebApi2\5.InfraStructure\WebApi2.Infrastructure\obj\Debug\WebApi2.InfraStructure.dll
+D:\codepractice-prj\Angular4Features\WebApi2\5.InfraStructure\WebApi2.Infrastructure\obj\Debug\WebApi2.InfraStructure.pdb
+D:\codepractice-prj\Angular4Features\App1Angular4\WebApi2\5.InfraStructure\ASPNETIdentityWithOnion.Web\bin\NLog.config
+D:\codepractice-prj\Angular4Features\App1Angular4\WebApi2\5.InfraStructure\ASPNETIdentityWithOnion.Web\bin\WebApi2.InfraStructure.dll
+D:\codepractice-prj\Angular4Features\App1Angular4\WebApi2\5.InfraStructure\ASPNETIdentityWithOnion.Web\bin\WebApi2.InfraStructure.pdb
+D:\codepractice-prj\Angular4Features\App1Angular4\WebApi2\5.InfraStructure\WebApi2.Infrastructure\obj\Debug\WebApi2.InfraStructure.csprojResolveAssemblyReference.cache
+D:\codepractice-prj\Angular4Features\App1Angular4\WebApi2\5.InfraStructure\WebApi2.Infrastructure\obj\Debug\WebApi2.InfraStructure.csproj.CoreCompileInputs.cache
+D:\codepractice-prj\Angular4Features\App1Angular4\WebApi2\5.InfraStructure\WebApi2.Infrastructure\obj\Debug\WebApi2.InfraStructure.dll
+D:\codepractice-prj\Angular4Features\App1Angular4\WebApi2\5.InfraStructure\WebApi2.Infrastructure\obj\Debug\WebApi2.InfraStructure.pdb

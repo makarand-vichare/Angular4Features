@@ -1,0 +1,11 @@
+D:\codepractice-prj\Angular4Features\WebApi2\4.DataAccess\WebApi2.IRepositories\bin\Debug\WebApi2.IRepositories.dll
+D:\codepractice-prj\Angular4Features\WebApi2\4.DataAccess\WebApi2.IRepositories\bin\Debug\WebApi2.IRepositories.pdb
+D:\codepractice-prj\Angular4Features\WebApi2\4.DataAccess\WebApi2.IRepositories\bin\Debug\EntityFramework.dll
+D:\codepractice-prj\Angular4Features\WebApi2\4.DataAccess\WebApi2.IRepositories\bin\Debug\WebApi2.EntityModels.dll
+D:\codepractice-prj\Angular4Features\WebApi2\4.DataAccess\WebApi2.IRepositories\bin\Debug\WebApi2.EntityModels.pdb
+D:\codepractice-prj\Angular4Features\WebApi2\4.DataAccess\WebApi2.IRepositories\bin\Debug\WebApi2.EntityModels.dll.config
+D:\codepractice-prj\Angular4Features\WebApi2\4.DataAccess\WebApi2.IRepositories\bin\Debug\EntityFramework.xml
+D:\codepractice-prj\Angular4Features\WebApi2\4.DataAccess\WebApi2.IRepositories\obj\Debug\WebApi2.IRepositories.csprojResolveAssemblyReference.cache
+D:\codepractice-prj\Angular4Features\WebApi2\4.DataAccess\WebApi2.IRepositories\obj\Debug\WebApi2.IRepositories.csproj.CoreCompileInputs.cache
+D:\codepractice-prj\Angular4Features\WebApi2\4.DataAccess\WebApi2.IRepositories\obj\Debug\WebApi2.IRepositories.dll
+D:\codepractice-prj\Angular4Features\WebApi2\4.DataAccess\WebApi2.IRepositories\obj\Debug\WebApi2.IRepositories.pdb
